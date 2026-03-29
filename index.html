@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- =====================
+     SEO 基本メタ
+===================== -->
+<title>おすすめゲーム紹介|GAME GUIDE</title>
+<meta name="description" content="PS・Switch・スマホアプリ別におすすめゲームを紹介。プレイ時間・難易度・こんな人向けを一覧で確認できます。">
+
+<!-- canonical -->
+<link rel="canonical" href="https://example.com/">
+
+<!-- favicon -->
+<link rel="icon" href="/favicon.ico">
+
+<!-- OGP -->
+<meta property="og:type"        content="website">
+<meta property="og:title"       content="おすすめゲーム紹介 | GAME GUIDE">
+<meta property="og:description" content="PS・Switch・スマホアプリ別におすすめゲームを紹介。プレイ時間・難易度・こんな人向けを一覧で確認できます。">
+<meta property="og:image"       content="https://example.com/img/karigazo.webp">
+<meta property="og:url"         content="https://example.com/">
+<meta name="twitter:card"       content="summary_large_image">
+
+<!-- =====================
+     フォント（重複を削除して1セットに）
+===================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- destyle -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/destyle.css@1.0.15/destyle.css"/>
+
+<!-- ヘッダー背景画像を早期に取得（LCP改善）-->
+<link rel="preload" as="image" href="img/karigazo.webp">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- スキップリンク：キーボードユーザーがナビをスキップしてメインコンテンツへ直接移動 -->
+    <a href="#main-content" class="skip-link">メインコンテンツへスキップ</a>
+
+    <header>
+        <div class="header-img">
+            <div class="header-img-spacer"></div>
+
+            <!-- ヘッダー装飾レイヤー -->
+            <div class="header-overlay" aria-hidden="true"></div>
+            <div class="header-grid" aria-hidden="true"></div>
+            <div class="header-accent-line" aria-hidden="true"></div>
+
+            <!-- サイトブランド（h1 でページの主題を明示） -->
+            <div class="header-brand">
+                <span class="header-brand-eyebrow">
+                    <span class="header-brand-dot" aria-hidden="true"></span>
+                    おすすめゲーム紹介
+                </span>
+                <h1 class="header-brand-title-wrap">
+                    <span class="header-brand-title">GAME</span><span class="header-brand-title-accent">GUIDE</span>
+                </h1>
+            </div>
+
+            <div class="search-bar" id="search-bar">
+                <label for="search-input" class="sr-only">タイトルで検索</label>
+                <span class="search-icon" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                </span>
+                <input type="search" id="search-input" class="search-input" placeholder="タイトルで検索…" autocomplete="off">
+                <button class="search-clear" id="search-clear" aria-label="検索をクリア">✕</button>
+            </div>
+            <ul class="tab" role="tablist" aria-label="プラットフォームフィルター">
+                <li role="tab" tabindex="0" aria-selected="true"  data-tab="all"    class="active">全て</li>
+                <li role="tab" tabindex="-1" aria-selected="false" data-tab="ps">PS</li>
+                <li role="tab" tabindex="-1" aria-selected="false" data-tab="switch">Switch</li>
+                <li role="tab" tabindex="-1" aria-selected="false" data-tab="mobile">app</li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- スマホ：検索＋タブfixed時のコンテンツずれ防止 -->
+    <div class="sticky-placeholder" id="sticky-placeholder"></div>
+
+    <div class="spacer"></div>
+
+    <main id="main-content">
+        <div class="content-wrapper">
+
+            <!-- 左50%：ゲーム一覧 3×3 -->
+            <div class="list-area">
+                <!-- ゲームカードはscript.jsがGAMES配列から自動生成 -->
+                <ul class="list" id="game-list"></ul>
+            </div>
+
+            <!-- 右50%：紹介パネル（固定・背景付き） -->
+            <div class="panel-area" aria-hidden="true">
+                <div class="panel-bg" id="panel-bg"></div>
+                <img class="panel-bg-media" id="panel-bg-img-a" src="" alt="" aria-hidden="true">
+                <img class="panel-bg-media" id="panel-bg-img-b" src="" alt="" aria-hidden="true">
+                <div class="panel-overlay"></div>
+                <div class="panel-inner">
+
+                    <div class="panel-content" id="panel-content" hidden aria-live="polite" aria-atomic="true">
+                        <p class="panel-genre"  id="panel-genre"></p>
+                        <h2 class="panel-title" id="panel-title"></h2>
+                        <p class="panel-desc"   id="panel-desc"></p>
+                        <div class="panel-meta">
+                            <div class="meta-row">
+                                <span class="meta-label">プレイ時間</span>
+                                <span class="meta-value" id="panel-time"></span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">難易度</span>
+                                <span class="meta-value" id="panel-difficulty"></span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-label">こんな人に</span>
+                                <span class="meta-value" id="panel-recommend"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p class="footer-notice">
+            本サイトは職業訓練校の卒業制作を目的とした非営利・学習目的のサイトです。<br>
+            掲載している画像・名称・ロゴ等の著作権および商標権は、各権利者に帰属します。<br>
+            営利目的での使用・二次配布は一切行っておりません。
+        </p>
+        <!-- 著作権表記はscript.jsがGAMES配列から自動生成 -->
+        <ul class="footer-credits" id="footer-credits"></ul>
+    </footer>
+
+    <!-- スマホ用 全画面モーダル -->
+    <div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-sheet">
+        <div class="modal-sheet-inner">
+            <button class="modal-close" id="modal-close" aria-label="閉じる"></button>
+            <button class="modal-close-btn" id="modal-close-btn" aria-label="閉じる"></button>
+            <p class="modal-genre" id="modal-genre"></p>
+            <h2 class="modal-title" id="modal-title"></h2>
+            <img class="modal-img" id="modal-img" src="" alt="">
+            <p class="modal-desc" id="modal-desc"></p>
+            <div class="modal-meta">
+                <div class="meta-row">
+                    <span class="meta-label">プレイ時間</span>
+                    <span id="modal-time"></span>
+                </div>
+                <div class="meta-row">
+                    <span class="meta-label">難易度</span>
+                    <span id="modal-difficulty"></span>
+                </div>
+                <div class="meta-row">
+                    <span class="meta-label">こんな人に</span>
+                    <span id="modal-recommend"></span>
+                </div>
+            </div>
+        </div><!-- /.modal-sheet-inner -->
+    </div><!-- /.modal-sheet -->
+</div><!-- /.modal-overlay -->
+
+<script src="games.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
